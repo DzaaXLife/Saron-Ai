@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -728,7 +728,7 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+    
     <header>
         <div class="container header-container">
             <div class="logo">
@@ -760,7 +760,7 @@
         </div>
     </header>
 
-    <!-- Home Page -->
+    
     <section class="page active" id="page-home">
         <div class="container">
             <div class="hero">
@@ -771,7 +771,7 @@
                 </button>
             </div>
             
-            <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.8rem; font-weight: 600;">Fitur Utama</h2>
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.8rem; font-weight: 600;">Key Features</h2>
 <div class="features">
     <div class="feature-card">
         <i class="fas fa-comments"></i>
@@ -799,14 +799,14 @@
 </div>
     </section>
 
-    <!-- Chat Page -->
+    
 <section class="page" id="page-chat">
     <div class="container">
         <h1 style="text-align: center; margin-bottom: 10px; font-size: 2.2rem; font-weight: 700;">Chat Room</h1>
         <p style="text-align: center; margin-bottom: 30px; color: var(--text-secondary);">Start a conversation with a smart AI assistant.</p>
         
         <div class="chat-container">
-            <!-- Sidebar for chat history -->
+            
             <div class="chat-sidebar" id="chatSidebar">
                 <div class="chat-header">
                     <button class="new-chat-btn" onclick="userClickNewChat()">
@@ -815,11 +815,11 @@
                 </div>
                 
                 <div class="chat-history" id="chatHistoryList">
-                    <!-- Chat history will be loaded here -->
+                    
                 </div>
             </div>
             
-            <!-- Main chat area -->
+            
             <div class="chat-main">
                 <div class="chat-topbar">
                     <div class="chat-title" id="chatTitle">New Conversation</div>
@@ -837,7 +837,7 @@
                 </div>
                 
                 <div class="messages-container" id="chatContainer">
-                    <!-- Messages will appear here -->
+                    
                     <div class="empty-state">
                         <div class="saron-logo">
                             <i class="fas fa-comment"></i>
@@ -858,7 +858,7 @@
     </div>
 </section>
 
-    <!-- Contact Page -->
+    
     <section class="page" id="page-contact">
         <div class="container">
             <h1 style="text-align: center; margin-bottom: 10px; font-size: 2.2rem; font-weight: 700;">Contact</h1>
@@ -903,7 +903,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    
     <footer>
         <div class="container">
 <p>&copy; <span id="currentYear"></span> Saron. All rights reserved.</p>
@@ -915,17 +915,17 @@
         </div>
     </footer>
 
-    <!-- Overlay untuk sidebar mobile -->
+    
     <div class="overlay" onclick="toggleSidebar()"></div>
 
     <script>
-        
+       
         const body = document.body;
         const savedTheme = localStorage.getItem('theme') || 'light';
         const themeIcon = document.querySelector('.theme-toggle i');
         body.setAttribute('data-theme', savedTheme);
         
-        
+       
         if(savedTheme === 'dark') {
             themeIcon.className = 'fas fa-sun';
         } else {
@@ -938,7 +938,7 @@
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             
-            
+           
             if(newTheme === 'dark') {
                 themeIcon.className = 'fas fa-sun';
             } else {
@@ -946,11 +946,11 @@
             }
         }
 
-        
+       
         function switchTab(pageId) {
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active');
-                
+               
                 p.style.animation = 'none';
                 setTimeout(() => {
                     p.style.animation = 'fadeIn 0.5s ease forwards';
@@ -962,20 +962,20 @@
             const map = {'home':0,'chat':1,'contact':2};
             if(navs[map[pageId]]) navs[map[pageId]].classList.add('active');
             
-            
+           
             if(pageId !== 'chat') {
                 document.getElementById('chatSidebar').classList.remove('active');
                 document.querySelector('.overlay').classList.remove('active');
             }
             
-            
+           
             const navLinks = document.querySelector('.nav-links');
             if(window.innerWidth <= 768) {
                 navLinks.classList.remove('active');
             }
         }
 
-        
+       
         let chats = JSON.parse(localStorage.getItem('saron_chats')) || [];
         let activeChatId = null;
 
@@ -987,23 +987,23 @@
         const sidebarToggle = document.getElementById('sidebarToggle');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 
-        
+       
         renderHistory();
         
-        
+       
         if(chats.length > 0) {
             loadChat(chats[0].id);
         }
 
-        
+       
         function userClickNewChat() {
             startNewChat();
-            toggleSidebar(); 
+            toggleSidebar();
         }
 
         function startNewChat() {
             activeChatId = Date.now().toString();
-            const newChat = { id: activeChatId, title: 'New conversation', messages: [] };
+            const newChat = { id: activeChatId, title: 'New Conversation', messages: [] };
             chats.unshift(newChat);
             saveChats();
             loadChat(activeChatId);
@@ -1021,7 +1021,8 @@
                 chatContainer.innerHTML = `
                     <div class="empty-state">
                         <div class="saron-logo"><i class="fas fa-comment"></i></div>
-                        <p>Start a new conversation by sending your first message</p>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 10px; font-weight: 600;">Welcome</h3>
+                        <p>Start a new conversation by sending your first message.</p>
                     </div>`;
             } else {
                 chat.messages.forEach(msg => renderBubble(msg.text, msg.sender, false));
@@ -1036,14 +1037,14 @@
                 div.className = `hist-item ${chat.id === activeChatId ? 'active' : ''}`;
                 div.onclick = () => {
                     loadChat(chat.id);
-                    toggleSidebar(); 
+                    toggleSidebar();
                 };
                 div.innerHTML = `<i class="far fa-comment-alt"></i> <span>${chat.title}</span>`;
                 chatHistoryList.appendChild(div);
             });
         }
 
-        
+       
         function escapeHtml(text) {
             return text
                 .replace(/&/g, "&amp;")
@@ -1057,11 +1058,11 @@
             const text = aiInput.value.trim();
             if (!text) return;
             
-            if (!activeChatId) startNewChat(); // Logic ini TIDAK membuka sidebar
+            if (!activeChatId) startNewChat();
             
             const chat = chats.find(c => c.id === activeChatId);
 
-            if (chat.title === 'New conversation') {
+            if (chat.title === 'New Conversation') {
                 chat.title = text.substring(0, 20);
                 saveChats(); renderHistory(); chatTitle.innerText = chat.title;
             }
@@ -1075,8 +1076,11 @@
             scrollToBottom();
 
             try {
-const response = await axios.post('/api/generate', {
-    messages: apiMsgs
+                const apiMsgs = [{role:"system", content:"You are Saron. A wise and attentive listener. You are also a good advisor and an experienced writer. Answer clearly and informatively."}];
+                chat.messages.forEach(m => apiMsgs.push({role: m.sender==='user'?'user':'assistant', content: m.text}));
+
+                const response = await axios.post('/api/chat', {
+  messages: apiMsgs
 });
 
                 document.getElementById(loadingId).remove();
@@ -1086,9 +1090,21 @@ const response = await axios.post('/api/generate', {
                 saveChats(); scrollToBottom();
             } catch (e) {
                 document.getElementById(loadingId).remove();
-                let errorMsg = "A connection error occurred";
+                let errorMsg = "Sorry, a connection error occurred. ";
                 
-
+                if (e.response) {
+                    if (e.response.status === 401) {
+                        errorMsg = "The API key is invalid or has expired.";
+                    } else if (e.response.status === 429) {
+                        errorMsg = "Usage limit has been reached. Please try again later.";
+                    } else {
+                        errorMsg = `API Error: ${e.response.status}`;
+                    }
+                } else if (e.request) {
+                    errorMsg = "No response from server. Check your internet connection.";
+                } else {
+                    errorMsg = `Error: ${e.message}`;
+                }
                 
                 renderBubble(errorMsg, 'bot');
                 console.error("API Error:", e);
@@ -1103,16 +1119,16 @@ const response = await axios.post('/api/generate', {
             div.className = `msg-row ${sender === 'user' ? 'user-row' : 'bot-row'}`;
             const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
             
-
+           
             let safeText = escapeHtml(text);
             
-
+           
             safeText = safeText.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
             
-
+           
             safeText = safeText.replace(/`([^`]+)`/g, '<code style="background:rgba(0,0,0,0.1);padding:2px 4px;border-radius:4px;">$1</code>');
             
-
+           
             safeText = safeText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
 
             div.innerHTML = `<div class="chat-bubble ${sender === 'user' ? 'b-user' : 'b-bot'}">${safeText}<span class="msg-time">${time}</span></div>`;
@@ -1144,8 +1160,8 @@ const response = await axios.post('/api/generate', {
         
         function copyToClip(t) { 
             navigator.clipboard.writeText(t).then(() => Swal.fire({
-                title:'Copied', 
-                text:'The text has been copied to the clipboard.', 
+                title:'Copied!', 
+                text:'Text has been copied to clipboard.', 
                 icon:'success', 
                 timer:1500, 
                 showConfirmButton:false,
@@ -1157,14 +1173,14 @@ const response = await axios.post('/api/generate', {
         function deleteChat() {
             if(!activeChatId) return;
             Swal.fire({ 
-title: 'Delete Conversation?', 
-text: "Deleted conversations cannot be recovered.",
-icon: 'warning', 
-showCancelButton: true, 
-confirmButtonColor: '#4a6fa5',
-cancelButtonColor: '#666666',
-confirmButtonText: 'Yes, Delete',
-cancelButtonText: 'Cancel',
+                title: 'Delete Conversation?', 
+                text: "Deleted conversation cannot be recovered.",
+                icon: 'warning', 
+                showCancelButton: true, 
+                confirmButtonColor: '#4a6fa5',
+                cancelButtonColor: '#666666',
+                confirmButtonText: 'Yes, Delete',
+                cancelButtonText: 'Cancel',
                 background: 'var(--bg-card)',
                 color: 'var(--text-primary)'
             }).then((res) => {
@@ -1183,8 +1199,8 @@ cancelButtonText: 'Cancel',
                             </div>`; 
                     }
                     Swal.fire({
-title: 'Deleted', 
-text: 'The conversation has been deleted.',
+                        title:'Deleted!', 
+                        text:'The conversation has been deleted.', 
                         icon:'success',
                         timer: 1500,
                         showConfirmButton: false,
@@ -1198,15 +1214,15 @@ text: 'The conversation has been deleted.',
         function renameChat() {
             if(!activeChatId) return;
             Swal.fire({ 
-title: 'Rename Conversation', 
-input: 'text',
-inputValue: chats.find(c => c.id === activeChatId).title,
-showCancelButton: true,
-inputValidator: (value) => {
-    if (!value) {
-        return 'Conversation name cannot be empty!';
-    }
-},
+                title: 'Rename Conversation', 
+                input: 'text',
+                inputValue: chats.find(c => c.id === activeChatId).title,
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Conversation name cannot be empty!';
+                    }
+                },
                 background: 'var(--bg-card)',
                 color: 'var(--text-primary)',
                 inputAttributes: {
@@ -1222,16 +1238,16 @@ inputValidator: (value) => {
             });
         }
 
-
+       
         if(sendBtn) sendBtn.addEventListener('click', sendMessage);
         if(aiInput) aiInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage() });
         
-
+       
         if(sidebarToggle) {
             sidebarToggle.addEventListener('click', toggleSidebar);
         }
         
-
+       
         if(mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => {
                 const navLinks = document.querySelector('.nav-links');
@@ -1239,7 +1255,7 @@ inputValidator: (value) => {
             });
         }
         
-
+       
         document.addEventListener('click', (e) => {
             const navLinks = document.querySelector('.nav-links');
             if(window.innerWidth <= 768 && navLinks.classList.contains('active') && 
